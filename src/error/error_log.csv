@@ -1,0 +1,16 @@
+name,url,timestamp,status
+Test404,https://github.com/OpenDataScot,2022-10-25 17:36:13.564047,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:36:13.859066,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:38:21.560427,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:38:21.870442,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:39:23.436318,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:39:23.723979,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:39:29.953757,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:39:30.246762,ConnectionError
+renfrew,"https://opendata.arcgis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:39:43.926314,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:40:06.308836,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:40:06.595660,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:45:14.881198,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:45:15.178844,ConnectionError
+Test404,https://github.com/OpenDataScot,2022-10-25 17:46:37.888138,404
+TestConn,"https://opendata.arcis.com/api/v3/search?catalog[groupIds]=any(79dc9ae7552e4782bf66dadbdf049a0d,bcaad01ef27a4457b9c9406818eaca5d)",2022-10-25 17:46:38.162637,ConnectionError
