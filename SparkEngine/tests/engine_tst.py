@@ -1,5 +1,4 @@
 # Test Reactor Engine
-# Created by: D. Fraser
 
 import sys, numpy as np
 from time import time

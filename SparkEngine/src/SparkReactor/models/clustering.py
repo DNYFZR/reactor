@@ -1,5 +1,7 @@
+# Clustering Module
+
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 np.random.seed(42)
 
@@ -85,14 +87,14 @@ class KMeans():
         distances = [euclidean_distance(centroids_old[i], centroids[i]) for i in range(self.K)]
         return sum(distances) == 0
 
-    # def plot(self):
-    #     fig, ax = plt.subplots(figsize=(12, 8))
+    def plot(self):
+        fig, ax = plt.subplots(figsize=(12, 8))
 
-    #     for i, index in enumerate(self.clusters):
-    #         point = self.X[index].T
-    #         ax.scatter(*point)
+        for i, index in enumerate(self.clusters):
+            point = self.X[index].T
+            ax.scatter(*point)
 
-    #     for point in self.centroids:
-    #         ax.scatter(*point, marker="x", color='black', linewidth=2)
+        for point in self.centroids:
+            ax.scatter(*point, marker="x", color='black', linewidth=2)
 
-    #     plt.show()
+        plt.show()
