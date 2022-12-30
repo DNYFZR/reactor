@@ -6,8 +6,8 @@ from time import time
 np.random.seed(0)
 sys.path.append('../')
 
-from src.SparkReactor.engine import Engine
-from src.SparkReactor.models.weibull import Weibull
+from src.engine import Engine
+from src.models.weibull import Weibull
 
 start = time()
 
