@@ -17,9 +17,9 @@ class Extract:
             self.data = req.content
         return self
 
-    def convert_type(self, current: str = None, new: str = None):
+    def convert_type(self, new: str = 'utf-8'):
         '''Convert data from current to new type'''
-        self.data = str(self.data, encoding='utf-8')
+        self.data = str(self.data, encoding=new)
         return self
 
     def split(self, delim_list: list):

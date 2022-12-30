@@ -1,7 +1,7 @@
-# Compact Discrete Event
+# Discrete Event
 import numpy as np
 
-class DECompact:
+class DiscreteEvent:
 
     def __init__(self, states, probs):
         self.states = states
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     start = time()
 
-    sim = DECompact(states=ages, probs=probs)
+    sim = DiscreteEvent(states=ages, probs=probs)
     
     raw = sim.configure().run()
     interval = time()

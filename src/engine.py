@@ -268,7 +268,7 @@ class Engine:
         return self
     
     def count_values(self, attribute: str, source_attr:str = 'data', col_regex: str = 'step', start: int = 0, 
-                    partition_by: Union[str, None] = None, interval: Union[int, None] = None ):
+                    partition_by: Union[str, list, None] = None, interval: Union[int, None] = None ):
         '''
         Count values within spark dataframes, returns a tall dataframe with individual & cumulative distributions for columns matching iter_regex.
         
@@ -303,7 +303,7 @@ class Engine:
         df = getattr(self, attribute)
 
         # Select iter cols
-        iter_cols = [i for i in df.columns if re.match(col_regex, i)]
+        iter_cols = [i for i in df.columns if re.search(col_regex, i)]
         iter_cols = [(n, i) for n, i in enumerate(iter_cols)]
         
         if interval is None: 
@@ -311,24 +311,34 @@ class Engine:
         else:
             iter_cols = [i[1] for i in iter_cols if i[0] == start or (i[0] % interval == 0 and i[0] >= start)]
         
-        # Add partition col if requried
+        # Add partition col if requried and make list
         if partition_by is None:
             df = df.withColumn('partition_by', F.lit(1))
-            partition_by = 'partition_by'
+            partition_by = ['partition_by']
+
+        elif isinstance(partition_by, str):
+            partition_by = [partition_by]
                 
         for col in iter_cols:
             # Create window
-            w =  Window.partitionBy(partition_by).orderBy(col)
+            w =  Window.partitionBy(*partition_by).orderBy(col)
             
-            # Add cumulative dist & select distinct
-            temp = df.withColumn(f'{col}_%', F.cume_dist().over(w)).select(partition_by, col, f'{col}_%').distinct()
+            # Add cumulative count over window
+            temp = temp.withColumn(f'{col}_n', 
+                F.round(
+                    F.cume_dist().over(w) * F.count(F.col(col)).over(w)
+                    , 0
+                    ).select(*partition_by, col, f'{col}_n').distinct()
 
-            # Extract contributing % and step number
-            temp = temp.withColumn('value_%', F.when(F.col(col) > 0, F.col(f'{col}_%') - F.lag(f'{col}_%', 1).over(w) ).otherwise( F.col(f'{col}_%') ))
-            temp = temp.withColumn(col_regex, F.lit( int(col.split('_')[1]) ))
-            
-            # Align col naming & ordering for stacking
-            temp = temp.withColumnRenamed(col, 'value').withColumnRenamed(f'{col}_%', 'total_%').select(partition_by, col_regex, 'value', 'total_%', 'value_%', )
+            # Extract value count
+            temp = temp.withColumn(
+                'count', 
+                F.when(F.col(col) > F.min(F.col(col)).over(w), F.col(f'{col}_n') - F.lag(f'{col}_n', 1).over(w) 
+                ).otherwise( F.col(f'{col}_n') ))
+
+            # Align col naming
+            temp = temp.withColumn(col_regex, F.lit(col) ))
+            temp = temp.withColumnRenamed(col, 'value').select(*partition_by, col_regex, 'value', 'count', )
 
             # Stack frames
             if col == iter_cols[0]:

@@ -8,11 +8,11 @@ class dbt:
     
     def __init__(self, 
         db:      str = 'ATP_tour_data', 
-        user:    str = 'postgres', 
-        pw:      str = os.getenv('PG_PW'), 
+        user:    str = os.getenv('POSTGRES_ADMIN_ID'), 
+        pw:      str = os.getenv('POSTGRES_ADMIN_PW'), 
         server:  str = 'host.docker.internal', 
         port:    int =  5432, 
-        db_type: str = 'postgres') -> None:
+        db_type: str = 'postgres'):
 
         # Select engine connection string
         if db_type == 'postgres':
@@ -63,8 +63,8 @@ if __name__ == '__main__':
         WITH filtered_table as (
             SELECT *
             FROM matches
-            WHERE (winner_name = 'Rafael Nadal' AND loser_name = 'Novak Djokovic') OR 
-                (winner_name = 'Novak Djokovic' AND loser_name = 'Rafael Nadal')  
+            WHERE (winner_name = 'Rafael Nadal' AND loser_name = 'Novak Djokovic') 
+                OR (winner_name = 'Novak Djokovic' AND loser_name = 'Rafael Nadal')  
         )
 
         SELECT tourney_name, SUM(minutes) as total_mins
